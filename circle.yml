@@ -1,0 +1,31 @@
+machine: 
+
+      services:
+
+        - docker
+
+dependancies:
+
+      post:
+
+         - -docker build -t apache2 .
+
+test:
+
+      post:
+
+         - docker -run -d --name apache2 -p -80:80 apache2
+
+         - curl -v http://localhost:80
+
+deployment:
+
+      prod:
+
+         branch: master
+
+         commands:
+
+            chmod +x deploy.sh
+
+            bash deploy.sh     
