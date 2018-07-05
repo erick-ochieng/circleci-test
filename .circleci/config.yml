@@ -1,29 +1,22 @@
-const helloWorld = require('../handler').someone;
-
-
-describe('someone', () => {
-    var event = {};
-    var context = {};
-    var resp = {};
-    
-    it('should call someone function with success', (done) => {
-        var callback = (ctx, data) => {
-            console.log(data);
-            resp = data;
-            done();
-        }
-        someone(event, context, callback);
-        expect(resp.statusCode).toBe(200);
-    });
-});
-
-const HelloWorld = require('../lib/some-one');
-
-describe('saysome', () => {
-    var event = {};
-    var hWorld = new HelloWorld();
-
-    it('should call saysome and return message', () => {
-        expect(sone.saysome(event).message).toBe('Go Serverless v1.0! Your function executed successfully!');
-    });
-});
+version: 2
+jobs:
+  one:
+    docker:
+      - image: circleci/ruby:2.4.1-jessie
+    steps:
+      - checkout
+      - run: echo "Happy"
+      - run: sleep 25
+  two:
+    docker:
+      - image: circleci/ruby:2.4.1-jessie
+    steps:
+      - checkout
+      - run: echo "Happy again"
+      - run: sleep 15
+workflows:
+  version: 2
+  one_and_two:
+    jobs:
+      - one
+      - two
