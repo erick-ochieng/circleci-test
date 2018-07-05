@@ -1,22 +1,29 @@
-version: 2
-jobs:
-  one:
-    docker:
-      - image: circleci/ruby:2.4.1-jessie
-    steps:
-      - checkout
-      - run: echo "Am not boarding"
-      - run: sleep 25
-  two:
-    docker:
-      - image: circleci/ruby:2.4.1-jessie
-    steps:
-      - checkout
-      - run: echo "Loves counting money"
-      - run: sleep 15
-workflows:
-  version: 2
-  one_and_two:
-    jobs:
-      - one
-      - two
+const helloWorld = require('../handler').someone;
+
+
+describe('helloWorld', () => {
+    var event = {};
+    var context = {};
+    var resp = {};
+    
+    it('should call someone function with success', (done) => {
+        var callback = (ctx, data) => {
+            console.log(data);
+            resp = data;
+            done();
+        }
+        helloWorld(event, context, callback);
+        expect(resp.statusCode).toBe(200);
+    });
+});
+
+const HelloWorld = require('../lib/some-one');
+
+describe('sayHello', () => {
+    var event = {};
+    var hWorld = new HelloWorld();
+
+    it('should call saysome and return message', () => {
+        expect(hWorld.sayHello(event).message).toBe('Go Serverless v1.0! Your function executed successfully!');
+    });
+});
